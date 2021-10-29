@@ -1,0 +1,20 @@
+{
+    "name": "UHF-reader library",
+    "keywords": "Device Conterl,UHF-reader,M100,TTGO",
+    "description": "Arduino Library for UHF-reader development kit",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Xinyuan-LilyGO/UHF-reader.git"
+    },
+    "authors": [
+        {
+            "name": "Xinyuan Electronics",
+            "email": "lily@lilygo.cc",
+            "url": "https://github.com/Xinyuan-LilyGO",
+            "maintainer": true
+        }
+    ],
+    "version": "0.0.1",
+    "frameworks": "arduino",
+    "platforms": "esp32"
+}

@@ -1,0 +1,119 @@
+/*
+ * @Author: your name
+ * @Date: 2021-10-19 17:54:59
+ * @LastEditTime: 2021-10-28 11:59:17
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \MagicRF M100\src\main.cpp
+ */
+
+#include <Arduino.h>
+#include "RF_Commands.h"
+#include "HardwareSerial.h"
+
+HardwareSerial SerialRF(2);
+RFC_Class rfc(&SerialRF);
+
+// RF_Data_temp temp;
+void setup()
+{
+  pinMode(14, OUTPUT);
+  digitalWrite(14, 0);
+  delay(100);
+  digitalWrite(14, 1);
+  delay(500);
+
+  SerialRF.begin(115200, SERIAL_8N1, 2, 13);
+  Serial.begin(115200);
+  rfc.begin();
+
+  /*   uint8_t str[3] = {0x22, 0x27, 0x10};
+    rfc.SendFrame(rfc.BuildFrame(0X00, 0X27, 0x03, str)); */
+}
+
+void loop()
+{
+
+  // rfc.SendFrame(rfc.BuildFrame(0X00, 0X22));
+//  delay(200);
+
+//LabelStorage_t Para = rfc.GetLabelMomryFrame()
+
+
+
+  while (Serial.available())
+    SerialRF.write(Serial.read());
+
+  while (SerialRF.available())
+    //rfc.encode(SerialRF.read());
+   Serial.write(SerialRF.read());
+
+
+//设置Select参数
+  /* Select_t Para;
+  Para.MaskLen = 0x60;
+  Para.Ptr = 0x20;
+  Para.SelParam = 0x01;
+  Para.Mask[0] = 0x12;
+  Para.Mask[1] = 0x34;
+  Para.Mask[2] = 0x56;
+  Para.Mask[3] = 0x78;
+  Para.Mask[4] = 0x9A;
+  Para.Mask[5] = 0xBC;
+  Para.Mask[6] = 0xDE;
+  Para.Mask[7] = 0x00;
+  Serial.println(rfc.SetSelectParameterFrame(Para) ? "Set success" : "Set false");
+
+  Select_t data = rfc.GetSelectParameterFrame();
+  Serial.printf("SelParam : 0x%2X\n", data.SelParam);
+  Serial.printf("Ptr : 0x%2X\n", data.Ptr);
+  Serial.printf("Masklen : 0x%2X\n", data.MaskLen);
+  Serial.printf("Truncate : 0x%2X\n", data.Truncate);
+  Serial.print("Mask : 0x");
+  for (int i = 0; i < data.MaskLen >> 3; i++)
+  {
+    Serial.print(data.Mask[i], HEX);
+  }
+  Serial.println(); */
+
+  //设置读取信道
+  /*   Serial.println(rfc.SetRfChannelFrame(0x0D) ? "Set success" : "Set false");
+    Serial.print("Channel : 0x");
+    Serial.println(rfc.GetRfChannelFrame(), HEX); */
+
+  // s设置读取地区
+  /*  Serial.println(rfc.SetRegionFrame(REGION_CODE_CHN1) ? "Set success" : "Set false");
+    Serial.print("Region : 0x");
+    Serial.println(rfc.GetRegionFrame(), HEX); */
+
+  //设置/读取query
+  /*   Serial.println(rfc.SetQueryFrame(0x1020) ? "Set success" : "Set false");
+    Serial.print("Query : 0x");
+    Serial.println(rfc.GetQueryFrame(), HEX); */
+
+  //设置/读取发送功率
+  /*  Serial.println(rfc.SetPaPowerFrame(1) ? "Set success" : "Set false");
+ Serial.print("PaPower : ");
+ Serial.println(rfc.GetPaPowerFrame()); */
+
+  // Serial.println(String(rfc.GetModuleInfoFrame(0x02)).c_str());//查看信息示例
+
+  //读标签示例
+  /*   if (rfc.inventory.isUpdated())
+    {
+      if (rfc.inventory.isValid())
+      {
+
+        Serial.printf("RSSI : %d dB\n", (int8_t)rfc.inventory.RSSI());
+        Serial.printf("PC : %02X\n", rfc.inventory.PC());
+        Serial.printf("EPC : %08X\n", rfc.inventory.EPC_H());
+        Serial.printf("%08X\n", rfc.inventory.EPC_M());
+        Serial.printf("%08X\n", rfc.inventory.EPC_L());
+        Serial.printf("CRC : %02X\n", rfc.inventory.CRC());
+      }
+      else
+      {
+        Serial.printf("Error Code: %X\n", rfc.inventory.ErrorCode());
+      }
+    } */
+}
